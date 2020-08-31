@@ -1,27 +1,43 @@
 #include "pch.h"
-#include<iostream>
-#include<stdio.h>
+#include <iostream>
+#include <stdio.h>
+#include "Variables.h"
+#include "Engine.h"
 
 using namespace System;
 using namespace std;
 
-void printBoard();
+char board[3][3] = { '1','2','3','4','5','6','7','8','9' };
+char turn = 'x';
+int numTurn = 9;
+bool win = false;
+
+void printBoard(); 
 void Help();
 int takeInput();
 void userAction(int place);
-
-char board[3][3] = { '1','2','3','4','5','6','7','8','9' };
-char turn = 'x';
 
 int main()
 {
     cout << "Jay Swaminarayana" << endl;
     Help();
 
-    for(int numTurn = 9; numTurn > 0; --numTurn)
+    printBoard();
+
+    for(numTurn; numTurn > 0; --numTurn)
     {
         userAction(takeInput());
         printBoard();
+
+        // Checks if anyone has won 
+        if (numTurn < 6)
+        {
+            win = winningDecision();
+            if (win == true)
+            {
+                return 0;
+            }
+        }
     }
     
     return 0;
@@ -53,12 +69,20 @@ void Help()
 int takeInput()
 {
     int action = 0;
-    cout << "Pleas enter your number :" << endl;
+    Console::SetCursorPosition(0, 4);
+    if (turn == 'x')
+    {
+        cout << "User \"X\" please enter your number :" << endl;
+    }
+    else
+    {
+        cout << "User \"0\" please enter your number :" << endl;
+    }
     cin >> action;
     return action;
 }
 
-// 
+// will change the content of the array as per input given by user
 void userAction(int place)
 {
     if (turn == 'x')
