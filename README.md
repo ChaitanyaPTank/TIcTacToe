@@ -1,2 +1,2 @@
 # TIcTacToe
-Basic TicTacToe engine made using C.
+Basic TicTacToe engine made using C/C++.
